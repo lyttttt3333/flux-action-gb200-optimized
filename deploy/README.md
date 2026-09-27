@@ -69,3 +69,32 @@ The Slurm launchers resolve the repository from their own location. Override
 `FLUX_ACTION_ENV_SETUP` when your checkout, weights, cache, or environment setup script lives
 elsewhere. The RoboLab launcher additionally requires `ISAAC_IMAGE` and accepts
 `ROBOLAB_REPO`/`AGENT_DEPLOY_ROOT` overrides.
+
+## Serial GPT-6 Astra -> FLUX Action pipeline
+
+`deploy/gpt6_vla_proxy.py` is an OpenPI-compatible WebSocket proxy. For every
+observation it first sends the current camera views, robot state, overall task, and previous
+subtask to GPT-6 Astra. Astra is forced to call a structured planner tool that returns one
+non-numeric immediate subtask. The proxy then rewrites the prompt and synchronously calls the
+unchanged FLUX Action VLA for its 32-step action chunk. There is no FastWAM component and no
+parallel/overlapped execution.
+
+Launch the optimized single-GB200 VLA and serial proxy together:
+
+```bash
+export OPENAI_API_KEY='...'
+sbatch -A <slurm-account> --export=ALL deploy/flux3_action_gpt6_vla.sbatch
+```
+
+The endpoint is written to `outputs/gpt6-vla-<job-id>.endpoint`. Each response retains the
+normal `action` and `server_timing` fields and adds `gpt6_plan` plus `pipeline_timing` with
+planner, VLA RTT, and total latency. Images are sent to the OpenAI API on every request in the
+strict serial configuration. The key is read only from the environment and is never logged.
+
+Test the WebSocket plumbing without an API request by pointing the proxy at an existing VLA:
+
+```bash
+.venv/bin/python deploy/gpt6_vla_proxy.py \
+  --upstream ws://127.0.0.1:8000 --port 8001 \
+  --fixed-subtask 'Move the gripper above the yellow cup'
+```
