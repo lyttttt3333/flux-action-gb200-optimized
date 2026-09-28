@@ -1,0 +1,31 @@
+{
+  "status": "COMPLETE",
+  "bootstrap_exact": true,
+  "all_quality_pass": true,
+  "cases": [
+    {
+      "id": 0,
+      "npy_file_hashes": {
+        "restart-diagnostic-v2": "b94ec2cdfe330b5e8b9a5eadf9dcb7a0611816a5fcd6ebec9d52c8aa2902e132",
+        "lossless-deploy-v1-baseline": "b94ec2cdfe330b5e8b9a5eadf9dcb7a0611816a5fcd6ebec9d52c8aa2902e132",
+        "lossless-deploy-v1-all": "b94ec2cdfe330b5e8b9a5eadf9dcb7a0611816a5fcd6ebec9d52c8aa2902e132",
+        "lossless-selected-pinned-v1": "b94ec2cdfe330b5e8b9a5eadf9dcb7a0611816a5fcd6ebec9d52c8aa2902e132"
+      },
+      "byte_exact_across_processes": true,
+      "median_seconds": 0.6741054314188659,
+      "repeat_max_abs": 0.0
+    },
+    {
+      "id": 1,
+      "npy_file_hashes": {
+        "restart-diagnostic-v2": "cce231bfffb186e7f0c4377bd8a3388918091461788a87a518fa6367c2c1c99a",
+        "lossless-deploy-v1-baseline": "cce231bfffb186e7f0c4377bd8a3388918091461788a87a518fa6367c2c1c99a",
+        "lossless-deploy-v1-all": "cce231bfffb186e7f0c4377bd8a3388918091461788a87a518fa6367c2c1c99a",
+        "lossless-selected-pinned-v1": "cce231bfffb186e7f0c4377bd8a3388918091461788a87a518fa6367c2c1c99a"
+      },
+      "byte_exact_across_processes": true,
+      "median_seconds": 0.6803386386018246,
+      "repeat_max_abs": 0.0
+    }
+  ]
+}

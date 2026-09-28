@@ -12,6 +12,10 @@ SM100 row-scaled FP8 GEMMs, and the TP2 x parallel-CFG deployment. See
 [`deploy/README.md`](deploy/README.md) for launch instructions and
 [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md) for the measured latency breakdown.
 
+The RTX 5090 SageAttention2 path and its subsequent lossless optimizations are
+provided separately in [`optimizations/rtx5090/`](optimizations/rtx5090/README.md),
+including the measured results, pinned source, launch manifest and report website.
+
 `transformer.py`, `transformer_inf_bf16.py` and `transformer_inf_fp8r.py` keep training and inference implementations separate so readers, especially coding agents, can follow each path directly without tracing inheritance or configuration branches.
 
 The [FLUX 3 Action collection](https://huggingface.co/collections/black-forest-labs/flux-3-action)

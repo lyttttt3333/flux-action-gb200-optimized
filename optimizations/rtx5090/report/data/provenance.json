@@ -1,0 +1,14 @@
+{
+  "source_artifact_sha256": {
+    "original-v1/report.json": "486210abd810631ce8a677934e7d2be1bec4cb638081b275a8bb730374dbc212",
+    "optimized-v1/report.json": "bd6f8c4415749aad05e24a2d1919708fc5878c64da71d450d53926612c7121a5",
+    "rowwise-fp8-qkbf16-v3/report.json": "098b4f4a77a258bf8c668dc1a52f0de225974e8e6a69518cfdd0d757f9140ad5",
+    "sage2-smooth-thread-v3-v8/report.json": "3069ab3c1a168c3984eccc880a2c6e70998783d2ab08937cfc62e5aafe424c75",
+    "lossless-deploy-v1/abba.json": "fda85cb8f3e0dc4c160a253c78a5542131ef9dff3e122e94d3f42baec54aebf1",
+    "comparison-lossless-deploy-v1-all.json": "1fba3830e7472c196db4b8a6c88578305818c50a7e372b23eb057cf390820864",
+    "lossless-selected-pinned-v1/restart_verification.json": "daedfca77eda41b30453c222c306dbc5b6dacd9513551ff5c2be24199432a4f7"
+  },
+  "reference_commit": "823db016f814d466be0b140434d71909181bcff0",
+  "baseline_commit": "e2dd1d8dbc5977b54315d61f7548c63c043d6d4f",
+  "note": "Selected numerical evidence, not the full internal experiment archive. Source hashes identify the original unmodified artifacts. No weights, observations, logs, host identifiers or credentials are included."
+}

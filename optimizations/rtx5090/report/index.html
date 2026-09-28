@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d12">
+  <meta name="description" content="FLUX.3 Action 在单张 RTX 5090 上的优化实测：约 2.05× 加速，SageAttention2、无损融合、质量 gate 与可下载证据。">
+  <title>FLUX.3 Action / RTX 5090 · 加速实测</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#performance">跳到性能数据</a>
+<nav class="nav" aria-label="主导航"><div class="wrap nav-inner">
+  <a class="brand" href="#top"><span class="brand-icon" aria-hidden="true">↗</span> FLUX<span class="brand-light"> / ACTION</span></a>
+  <div class="nav-links"><a href="#performance">性能</a><a href="#engineering">优化</a><a href="#quality">质量</a><a href="#evidence">证据 <span aria-hidden="true">↗</span></a></div>
+  <span class="nav-date">RESEARCH NOTE <b>26.09.28</b></span>
+</div></nav>
+<main id="top">
+<header class="hero wrap">
+  <div class="hero-copy">
+    <div class="eyebrow"><i></i> SINGLE GPU · NVIDIA RTX 5090</div>
+    <h1>FLUX.3 Action<span>把等待减半。</span></h1>
+    <p class="hero-lead">从编译与混合精度，到注意力内核与数据搬运。<br class="desktop">在相同四步推理工作负载下，将动作预测压到 <strong>约 685 ms</strong>。</p>
+    <div class="hero-actions"><a class="button primary" href="#performance">探索实测结果 <span>↓</span></a><a class="button ghost" href="data/flux3-5090-public-evidence.zip" download>下载测量数据 <span>↗</span></a></div>
+    <div class="hero-tags"><span>FLUX.3 Action DROID</span><span>4 NFE · seed 0</span><span>质量 gate 通过</span></div>
+  </div>
+  <div class="hero-visual" aria-label="两个输入较原始 BF16 加速 2.04 到 2.05 倍">
+    <div class="visual-top"><span class="mono">WARM INFERENCE</span><span class="small-dot">已验证</span></div>
+    <div class="speed-number">2.05<span>×</span></div>
+    <p class="visual-sub">相对原始 BF16 · 两个输入 2.04–2.05×</p>
+    <div class="hero-rail"><div class="rail-label"><span>ORIGINAL</span><b>1,402.5 <small>ms</small></b></div><div class="rail-track"><div class="rail-original"></div></div></div>
+    <div class="hero-rail"><div class="rail-label"><span>OPTIMIZED</span><b class="mint">685.2 <small>ms</small></b></div><div class="rail-track"><div class="rail-final"></div></div></div>
+    <div class="visual-foot"><span>两个输入的 median 均值</span><span>延迟 <b>−51.1%</b></span></div>
+  </div>
+</header>
+<div class="wrap metrics">
+  <article><span class="metric-label">最终请求延迟</span><div class="metric-value">684.6–685.8 <small>ms</small></div><p>完整 warm action chunk</p></article>
+  <article><span class="metric-label">本轮无损优化</span><div class="metric-value mint">−5.3<small>%</small></div><p>相对固定 Sage2 基线的额外延迟下降</p></article>
+  <article><span class="metric-label">ABBA 输出逐位一致</span><div class="metric-value">120 <small>/ 120</small></div><p>同进程交替测量，全部请求匹配</p></article>
+  <article><span class="metric-label">原质量 gate</span><div class="metric-value">2 <small>/ 2 PASS</small></div><p>两个固定离线观测，阈值保持不变</p></article>
+</div>
+
+<section class="wrap section" id="performance">
+  <div class="section-heading"><div><div class="eyebrow muted">01 / PERFORMANCE</div><h2>每一段加速，都有实测落点。</h2><p>相同 GPU、checkpoint、输入、seed 和四步配置；统计量统一使用中位数。</p></div>
+  <div class="case-picker" role="group" aria-label="选择观测输入"><button type="button" data-case="0" aria-pressed="true">输入 01</button><button type="button" data-case="1" aria-pressed="false">输入 02</button></div></div>
+  <p class="case-caption"><span class="mono">OBSERVATION <span data-case-number>01</span></span><span id="case-task">将黄色杯中的内容物倒入粉色碗中</span></p>
+  <div class="performance-grid">
+    <article class="panel waterfall"><div class="panel-top"><h3>从原版到最终路径</h3><span class="mono">MEDIAN / ms · 越短越快</span></div><div id="stage-bars"></div><div class="chart-axis"><span>0</span><span>500</span><span>1,000</span><span>1,500 ms</span></div>
+      <p class="footnote">阶段 01–04 为历史独立进程结果；阶段 05 使用最终 ABBA 中位数。这里呈现优化路线，阶段差值不作为严格单项消融。</p>
+    </article>
+    <aside class="panel result-panel"><span class="eyebrow">SELECTED INPUT</span><div class="selected-speed"><span id="selected-speed">2.040</span><small>×</small></div><p>相对原始 BF16 的总加速</p><div class="divider"></div><dl class="key-values"><div><dt>原始 BF16</dt><dd id="selected-original">1,396.406 ms</dd></div><div><dt>最终路径</dt><dd class="mint" id="selected-final">684.603 ms</dd></div><div><dt>每次请求减少</dt><dd id="selected-saved">711.802 ms</dd></div><div><dt>延迟下降</dt><dd id="selected-reduction">50.97%</dd></div></dl><a class="text-link" href="data/summary.json" download>查看精确数值 <span>↗</span></a></aside>
+  </div>
+  <div class="abba-grid">
+    <article class="panel"><div class="panel-top"><h3>最后 5.3%，用交替测量确认</h3><span class="badge">ABBA · 15 组</span></div><div class="legend"><span><i class="blue-dot"></i>固定 Sage2 基线</span><span><i class="mint-dot"></i>全部无损优化</span></div><div id="abba-chart" class="abba-chart"></div><p class="footnote">每路径、每输入 5 次预热 + 30 次计时；A/B 模式切换在计时外。横轴是各路径的样本序号，纵轴显示实际延迟区间。</p></article>
+    <article class="panel abba-summary"><span class="eyebrow muted">PAIRED COMPARISON</span><h3><span id="abba-before">722.625</span><span class="muted-text"> → </span><span class="mint" id="abba-after">684.603</span><small> ms</small></h3><p>同一个进程、同一个模型，在热态请求间交替切换优化。</p><div class="mini-metrics"><div><b id="abba-drop">5.262%</b><span>额外延迟下降</span></div><div><b id="abba-speed">1.05554×</b><span>额外加速倍数</span></div></div><p class="exact-note">✓ 120 次输出全部逐位一致</p><p class="footnote">独立重启复测也通过。主结论保留 ABBA 数据，不以另一次运行的更低绝对时间替代。</p></article>
+  </div>
+</section>
+
+<section class="section engineering-section" id="engineering"><div class="wrap">
+  <div class="section-heading"><div><div class="eyebrow muted">02 / ENGINEERING</div><h2>先减少计算成本，再消除搬运。</h2><p>混合精度带来主要性能提升；最后一轮保持既有计算结果，继续压缩内存与调度开销。</p></div></div>
+  <div class="pipeline"><span>图像 / VAE conditioning</span><b>→</b><span>4 步视频 + 动作去噪</span><b>→</b><span class="pipeline-final">1 × 32 × 8 动作输出</span></div>
+  <div class="stack">
+    <div class="stack-row"><span class="step-no">01</span><div><h3>编译与执行路径</h3><span class="tag">执行优化</span></div><p>编译 DiT / VAE，合并 CFG 分支并共享 conditioning，融合四步 UniPC 更新，使用既有 CUDA Graph 热态路径。</p><div class="stack-stat">1.26×<small>历史阶段 / vs. 原版</small></div></div>
+    <div class="stack-row"><span class="step-no">02</span><div><h3>混合精度投影</h3><span class="tag amber">数值近似 · 经 gate</span></div><p>保持 Q/K 投影为 BF16，其他选定投影使用 row-wise FP8。保留四步求解、guidance 和原模型权重来源。</p><div class="stack-stat">1.79–1.80×<small>历史累计 / vs. 原版</small></div></div>
+    <div class="stack-row"><span class="step-no">03</span><div><h3>SageAttention2</h3><span class="tag amber">数值近似 · 经 gate</span></div><p>per-thread INT8 QK、FP8 PV、FP32 累加；保留 K smooth 和 V smooth。采用 NHD 布局，覆盖 5 个 video early 与 28 个 joint block。</p><div class="stack-stat">1.96×<small>历史累计 / vs. 原版</small></div></div>
+    <div class="stack-row last"><span class="step-no">04</span><div><h3>融合、布局与缓存</h3><span class="tag green">无新增近似 · bit exact</span></div><p>融合中心化与量化、直接写目标布局、引用 V 投影输出，并缓存固定工作。将这套 Sage2 基线的延迟再降低约 5.3%。</p><div class="stack-stat mint">2.04–2.05×<small>最终累计 / vs. 原版</small></div></div>
+  </div>
+  <div class="notice"><span class="notice-label">“无损”的准确范围</span><p>最后一轮优化相对<strong>已固定的混合精度 + Sage2 基线</strong>输出逐位相同。整个优化路线包含量化近似，不宣称与原始 BF16 逐位相同。</p></div>
+  <div class="detail-heading"><h3>最后一轮，具体做了什么</h3><span>打开卡片查看实现细节</span></div>
+  <div class="details-grid">
+    <details open><summary><span class="detail-index">A</span><span>K 中心化 × INT8 quant</span><i>+</i></summary><div class="detail-body"><p>在量化核中完成 K 减均值，并显式保留原来的 BF16 舍入。Q quant、scale 与 INT8 规则保持一致，消除 K 中间张量。</p><div class="code-line">K → center + BF16 round + quant → INT8</div><div class="component"><span>主形状 K quant</span><b>104.65 → <em>59.02</em> μs</b></div></div></details>
+    <details open><summary><span class="detail-index">B</span><span>Norm / RoPE 直接写 NHD</span><i>+</i></summary><div class="detail-body"><p>仅调整生成核最后的存储类型和位置，直接输出 BF16 / NHD。保留原算术及实际归约配置，省去 Q/K 独立转换与拷贝。</p><div class="code-line">Norm / RoPE → BF16 · NHD → attention</div><div class="component"><span>作用范围</span><b>5 early + 28 joint blocks</b></div></div></details>
+    <details open><summary><span class="detail-index">C</span><span>V alias + tiled transpose</span><i>+</i></summary><div class="detail-body"><p>直接引用 V+MLP projection 的 V 切片，省去 V 物化；以 64×64、4 warps 的 Triton tile 完成转置、padding 和 permutation。V mean / scale / quant 仍用原核，保留 V smooth。</p><div class="component"><span>V quant 整段，含搬运</span><b>78.93 → <em>37.22</em> μs</b></div></div></details>
+    <details open><summary><span class="detail-index">D</span><span>固定工作缓存</span><i>+</i></summary><div class="detail-body"><p>缓存 timestep modulation、四步求解器 CPU 系数、同 seed 的噪声和位置 IDs。按依赖张量、seed、形状、设备及配置匹配；每个输入的观测推理仍照常执行。</p><div class="component"><span>输出检查</span><b class="mint">逐位一致</b></div></div></details>
+  </div><p class="footnote">组件时间来自对应真实形状测试，用于解释机会；不能直接相加或当作 E2E 加速倍数。</p>
+</div></section>
+
+<section class="section wrap" id="quality">
+  <div class="section-heading"><div><div class="eyebrow muted">03 / QUALITY & REPRODUCIBILITY</div><h2>速度之外，保留原来的判断标准。</h2><p>最终路径与原始 BF16 输出对照；下面的数值随“输入 01 / 02”选择联动。</p></div><span class="status-pill"><i></i> 2 / 2 原 gate 通过</span></div>
+  <div class="quality-grid"><article class="panel gate-panel"><div class="panel-top"><h3>误差距离阈值还有多远</h3><span class="mono">INPUT <span data-case-number>01</span></span></div><div id="quality-bars"></div><p class="footnote">条形长度 = 误差 / 阈值，右端为 gate 上限。低于阈值仅表示本次离线数值筛查通过。</p></article><article class="panel quality-copy"><span class="eyebrow">SAME GATE. SAME WORKLOAD.</span><h3>两个输入通过。<br>阈值没有放宽。</h3><p>joint MAE ≤ 0.02 rad，joint max ≤ 0.05 rad，gripper max ≤ 0.05；相对 recorded action 的 joint MAE 退化 ≤ 0.02 rad。</p><div class="recorded"><span>当前输入 · recorded joint MAE 变化</span><b id="recorded-change">−0.00859 rad</b><small>负值表示本输入的 MAE 下降</small></div><p class="boundary">评测范围：2 个固定离线观测。没有进行机器人 rollout，不能据此推断任务成功率或泛化表现。</p></article></div>
+  <article class="panel reproducibility"><div class="repro-copy"><div class="eyebrow muted">RESTART CONSISTENCY</div><h3>固定实际 launcher，复现同一份输出。</h3><p>重启诊断发现：权重、conditioning 与第一次 DiT 输入相同，但 3 个 LayerNorm 核的 R0_BLOCK 被 autotune 在 512 / 1024 之间切换，第一次 DiT 输出开始分歧。</p><p>冻结通过原 gate 的 <strong>46 个实际 hot launcher 配置</strong>，并绑定生成代码 SHA。固定基线、全部优化和最终独立进程复测的输出文件哈希一致。</p><div class="repro-tags"><span>420 参数张量已比对</span><span>2 个输出跨进程一致</span><span>重复运行最大差异 0</span></div></div><div class="repro-proof"><span class="mono">OUTPUT SHA256 / 四份记录一致</span><div><span>INPUT 01</span><code>b94ec2cdfe33…2902e132</code><b>✓</b></div><div><span>INPUT 02</span><code>cce231bfffb1…1c99a</code><b>✓</b></div><a class="text-link" href="data/restart-verification.json" download>下载完整哈希与复测结果 ↗</a><p>仅对本轮已验证的代码、环境和工作负载成立。</p></div></article>
+  <details class="audit"><summary><span>实验边界与保留的失败记录</span><i>+</i></summary><div class="audit-grid"><div><h4>重启失败如实保留</h4><p>早期 fresh runner 的 case 0 joint max 为 0.053043 rad；诊断 v1 为 0.071199 rad，均超过 0.05。最终冻结通过 gate 的具体配置后完成复现验证。这不是“所有 autotune 配置都能过 gate”的证明。</p></div><div><h4>没有收益的方向停止集成</h4><p>主要 GEMM 形状的同精度 autotune / padding 没有收益；改变 bits 且更慢的 FP8 attention-out 被拒绝。early BF16 小核理论收益上限约 0.23 ms / request，未继续移植。</p></div><div><h4>已有优化不重复计算</h4><p>CUDA Graph、共享 CFG、静态编译路径和融合 solver 已在前期基线中。最后一轮没有再将它们计算为新增收益，也没有减少推理步数。</p></div><div><h4>5090 与 B200 分开看</h4><p>本页只汇总完成验证的单卡 RTX 5090 路线。参考项目的 GB200 数据及本任务的 B200 VC-Attn 研究不并入这组结果；最终 5090 路径使用 SageAttention2。</p></div></div></details>
+</section>
+
+<section class="section evidence-section" id="evidence"><div class="wrap">
+  <div class="section-heading"><div><div class="eyebrow muted">04 / METHODS & EVIDENCE</div><h2>结论可以点开，数据可以重算。</h2><p>报告使用已完成的测量记录。下载包保留数值、配置与来源哈希，便于独立核查。</p></div><a class="button primary" href="data/flux3-5090-public-evidence.zip" download>下载公开证据包 <span>↓</span></a></div>
+  <div class="methods-grid"><div class="panel"><h3>计时边界</h3><div class="timing-in"><span>计入</span><p>完整 warm <code>predict_action_chunk</code>：图像 / VAE conditioning + 四步视频 / 动作去噪，每次请求同步 GPU。</p></div><div class="timing-out"><span>不计入</span><p>权重加载、Qwen 文本编码、首次编译 / 图捕获及 warmup。这里报告热态请求延迟。</p></div><p class="footnote">原版与历史阶段使用同一任务 harness。额外无损收益来自同进程 ABBA；总收益相对历史原始 BF16。</p></div><div class="panel"><h3>固定配置</h3><dl class="config-grid"><dt>硬件</dt><dd>1 × RTX 5090 / SM120</dd><dt>求解器</dt><dd>Cosmos UniPC · 4 NFE · shift 5</dd><dt>Guidance</dt><dd>video 4 / action 1</dd><dt>输入与输出</dt><dd>2 固定观测 / 1 × 32 × 8</dd><dt>随机种子</dt><dd>0</dd><dt>运行环境</dt><dd>Torch 2.12.1+cu130<br>Triton 3.7.1 / Sage 2.2.0</dd><dt>统计</dt><dd>5 warmup + 30 timed / path / input</dd></dl></div></div>
+  <div class="download-grid"><a href="data/summary.json" download><span class="file-icon">{ }</span><span><b>结果总览</b><small>精确比例 · 配置 · checkpoint</small></span><span>↓</span></a><a href="data/abba.json" download><span class="file-icon">↔</span><span><b>原始 ABBA 测量</b><small>120 次请求 · 完整时间序列</small></span><span>↓</span></a><a href="data/quality.json" download><span class="file-icon">✓</span><span><b>质量 gate</b><small>原阈值 · 每输入误差</small></span><span>↓</span></a><a href="data/provenance.json" download><span class="file-icon">#</span><span><b>来源与哈希</b><small>原始 artifact SHA256</small></span><span>↓</span></a></div>
+  <details class="source-details"><summary><span>模型版本与参考来源</span><i>+</i></summary><div><p><a href="https://huggingface.co/black-forest-labs/flux-3-action-droid" target="_blank" rel="noreferrer">black-forest-labs/flux-3-action-droid ↗</a><code>3d0887bdc7acee1686b19afac267125d519ff4f1</code></p><p><a href="https://huggingface.co/black-forest-labs/flux-3-action-base" target="_blank" rel="noreferrer">black-forest-labs/flux-3-action-base ↗</a><code>62878e2925e59b7a89ec14463ce89932624c490d</code></p><p>参考实现：<a href="https://github.com/lyttttt3333/flux-action-gb200-optimized/tree/823db016f814d466be0b140434d71909181bcff0" target="_blank" rel="noreferrer">flux-action-gb200-optimized @ 823db016 ↗</a></p><p>视觉参考：<a href="https://transactions-layout-photographs-paperbacks.trycloudflare.com/" target="_blank" rel="noreferrer">GB200 加速与评测报告 ↗</a>。本页所有 5090 数值来自本任务测量，未复用参考页的仿真与成功率结果。</p></div></details>
+  <p id="data-error" role="alert" hidden>交互数据暂时无法加载。静态结论仍可阅读，也可通过上方链接下载原始数据。</p>
+  <noscript><p class="notice">当前浏览器未启用 JavaScript。页面正文与数据下载可正常使用，交互图表需启用 JavaScript。</p></noscript>
+</div></section>
+</main>
+<footer class="wrap"><a class="brand" href="#top"><span class="brand-icon" aria-hidden="true">↗</span> FLUX<span class="brand-light"> / ACTION</span></a><p>RTX 5090 · 实验报告 <span>2026.09.28</span></p><a href="#top">返回顶部 ↑</a></footer>
+</body>
+</html>

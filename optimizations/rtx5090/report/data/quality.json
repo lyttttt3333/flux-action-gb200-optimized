@@ -1,0 +1,69 @@
+{
+  "baseline": "original-v1",
+  "candidate": "lossless-deploy-v1-all",
+  "thresholds": {
+    "joint_mae_rad": 0.02,
+    "joint_max_abs_rad": 0.05,
+    "gripper_max_abs": 0.05,
+    "recorded_joint_mae_degradation_rad": 0.02
+  },
+  "all_quality_pass": true,
+  "cases": [
+    {
+      "id": 0,
+      "vs_original": {
+        "joint_mae_rad": 0.009817952103081293,
+        "joint_max_abs_rad": 0.04699385166168213,
+        "gripper_mae": 0.002278873696923256,
+        "gripper_max_abs": 0.007245779037475586
+      },
+      "against_recorded": {
+        "original": {
+          "joint_mae_rad": 0.08577735238941386,
+          "joint_max_abs_rad": 0.2407611608505249,
+          "gripper_mae": 0.030396929010748863,
+          "gripper_max_abs": 0.03756916522979736
+        },
+        "optimized": {
+          "joint_mae_rad": 0.07718483853802484,
+          "joint_max_abs_rad": 0.21235013008117676,
+          "gripper_mae": 0.031708963215351105,
+          "gripper_max_abs": 0.037207841873168945
+        }
+      },
+      "quality_screen_pass": true,
+      "repeat_max_abs": {
+        "original": 0.0,
+        "optimized": 0.0
+      }
+    },
+    {
+      "id": 1,
+      "vs_original": {
+        "joint_mae_rad": 0.015379066013598017,
+        "joint_max_abs_rad": 0.0453333854675293,
+        "gripper_mae": 0.002805577591061592,
+        "gripper_max_abs": 0.010859251022338867
+      },
+      "against_recorded": {
+        "original": {
+          "joint_mae_rad": 0.04108549371760871,
+          "joint_max_abs_rad": 0.10416826605796814,
+          "gripper_mae": 0.01753225363790989,
+          "gripper_max_abs": 0.03046947717666626
+        },
+        "optimized": {
+          "joint_mae_rad": 0.033408622323934524,
+          "joint_max_abs_rad": 0.094066321849823,
+          "gripper_mae": 0.018700264394283295,
+          "gripper_max_abs": 0.03168797492980957
+        }
+      },
+      "quality_screen_pass": true,
+      "repeat_max_abs": {
+        "original": 0.0,
+        "optimized": 0.0
+      }
+    }
+  ]
+}

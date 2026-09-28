@@ -1,0 +1,128 @@
+{
+  "tested_reference_commit": "823db016f814d466be0b140434d71909181bcff0",
+  "original_baseline_commit": "e2dd1d8dbc5977b54315d61f7548c63c043d6d4f",
+  "sageattention_commit": "d1a57a546c3d395b1ffcbeecc66d81db76f3b4b5",
+  "validation": "Core files are copied byte-for-byte from the completed RTX 5090 experiment. Repository packaging receives static checks only, not a new GPU run.",
+  "files": {
+    "sm120_optimizations.py": {
+      "source_sha256": "e23db92164470159e96f393f9e9b1d5207283c09ec82c10f374ff1b384c2d8a3",
+      "export_sha256": "e23db92164470159e96f393f9e9b1d5207283c09ec82c10f374ff1b384c2d8a3",
+      "change": "none"
+    },
+    "sage2_model_5090.py": {
+      "source_sha256": "2ce00e08ee63cf9221d9e766a8a066cd6083f36fc56c570e62c572a95c28506f",
+      "export_sha256": "2ce00e08ee63cf9221d9e766a8a066cd6083f36fc56c570e62c572a95c28506f",
+      "change": "none"
+    },
+    "sage2_adapter.py": {
+      "source_sha256": "3554d43e5bb7d3d5db8564331314550fe5d38c2d6b48a67726610a9a4b278100",
+      "export_sha256": "3554d43e5bb7d3d5db8564331314550fe5d38c2d6b48a67726610a9a4b278100",
+      "change": "none"
+    },
+    "sage2-current-stream.patch": {
+      "source_sha256": "4da902deedc4463626c5a21777c1f228703ff0c13cfd3c83d7a184a59a88ac63",
+      "export_sha256": "4da902deedc4463626c5a21777c1f228703ff0c13cfd3c83d7a184a59a88ac63",
+      "change": "none"
+    },
+    "benchmark_sage2_5090.py": {
+      "source_sha256": "9fba6b8beb1e5ac12a58b993125162db3fd0b7ef2e5ff76b77d5cebb25c049a2",
+      "export_sha256": "9fba6b8beb1e5ac12a58b993125162db3fd0b7ef2e5ff76b77d5cebb25c049a2",
+      "change": "none"
+    },
+    "benchmark_5090.py": {
+      "source_sha256": "18895ba548ee8adb8cd69d6aa5082a6b196db675b35fe4bd048b5aca5c4c88a1",
+      "export_sha256": "18895ba548ee8adb8cd69d6aa5082a6b196db675b35fe4bd048b5aca5c4c88a1",
+      "change": "none"
+    },
+    "compare_5090.py": {
+      "source_sha256": "16d4bd4e23160984919d1d20ceef08d83dbcaed8766e9b4af4ae081c5566ba40",
+      "export_sha256": "16d4bd4e23160984919d1d20ceef08d83dbcaed8766e9b4af4ae081c5566ba40",
+      "change": "none"
+    },
+    "benchmark_lossless_deploy.py": {
+      "source_sha256": "6dbf29505970fb310176c68eb6bea7250818d51cc638e695e067622bbad5b5b4",
+      "export_sha256": "6dbf29505970fb310176c68eb6bea7250818d51cc638e695e067622bbad5b5b4",
+      "change": "none"
+    },
+    "lossless_install.py": {
+      "source_sha256": "3da956d5794996c88a7f97aa3b671292dc2fb6aa4de31061f6cbf1fadbe6da8c",
+      "export_sha256": "3da956d5794996c88a7f97aa3b671292dc2fb6aa4de31061f6cbf1fadbe6da8c",
+      "change": "none"
+    },
+    "lossless_runtime.py": {
+      "source_sha256": "576a899aea48efd6ea701778539e5f23e96d3e02d902e5ceaf9e0255784a7d34",
+      "export_sha256": "576a899aea48efd6ea701778539e5f23e96d3e02d902e5ceaf9e0255784a7d34",
+      "change": "none"
+    },
+    "lossless_kquant.py": {
+      "source_sha256": "366266a2aee0edd504fe22987772b77b819df868b5f0c4503762c4ae867337c6",
+      "export_sha256": "366266a2aee0edd504fe22987772b77b819df868b5f0c4503762c4ae867337c6",
+      "change": "none"
+    },
+    "lossless_codegen_pinned.py": {
+      "source_sha256": "f66a52ff4cf0b7702a4dc12d766df2afd822943c3079e8f82b5adf64cdabd79e",
+      "export_sha256": "f66a52ff4cf0b7702a4dc12d766df2afd822943c3079e8f82b5adf64cdabd79e",
+      "change": "none"
+    },
+    "lossless_norm_fixed.py": {
+      "source_sha256": "74bcc57a4238c793f4738b09b9b65e46aad005955787d433df418b1ce0a896b8",
+      "export_sha256": "74bcc57a4238c793f4738b09b9b65e46aad005955787d433df418b1ce0a896b8",
+      "change": "none"
+    },
+    "lossless_constants.py": {
+      "source_sha256": "6bca5d1a245e674efa92ae58e4d25e88d1ae4bb036ea64391e49cb07bdcc7531",
+      "export_sha256": "6bca5d1a245e674efa92ae58e4d25e88d1ae4bb036ea64391e49cb07bdcc7531",
+      "change": "none"
+    },
+    "lossless_vtranspose.py": {
+      "source_sha256": "84334ebafa68d0bfd47b2857e29478099a37f7c6a34145355959e108d87843b9",
+      "export_sha256": "84334ebafa68d0bfd47b2857e29478099a37f7c6a34145355959e108d87843b9",
+      "change": "none"
+    },
+    "lossless_launch_pin.py": {
+      "source_sha256": "30360de9bd7478a9681b82df65aeedacc1513b4a4fbcbf4deca3d768bd129d0a",
+      "export_sha256": "30360de9bd7478a9681b82df65aeedacc1513b4a4fbcbf4deca3d768bd129d0a",
+      "change": "none"
+    },
+    "lossless_launch_manifest.json": {
+      "source_sha256": "c5f17db940cd2be9c8a62a000f86869fd81d69c411e5090eba8a547954717309",
+      "export_sha256": "c5f17db940cd2be9c8a62a000f86869fd81d69c411e5090eba8a547954717309",
+      "change": "none"
+    },
+    "benchmark_lossless_selected.py": {
+      "source_sha256": "7eab507d03c3a513d53745048230b39aa751980ea22edd01f285ffe55aa395d4",
+      "export_sha256": "7eab507d03c3a513d53745048230b39aa751980ea22edd01f285ffe55aa395d4",
+      "change": "none"
+    },
+    "run_selected_5090.sh": {
+      "source_sha256": "9a1c34accc53d1602c15ebe854a4dde1e7c026fbdde8694fe9b3aa78535acdd7",
+      "export_sha256": "7571515f8a97cd2a4cbf3b0175db643eed99360163d0001f78474c4e848c851a",
+      "change": "shell runtime-root discovery only; FLUX5090_ROOT or script directory"
+    },
+    "run_selected_lossless_5090.sh": {
+      "source_sha256": "e62612d74ddcbdfe93f6b6508b567f4b7826ee028f95c10cabbef6e1c9ef9158",
+      "export_sha256": "b439bb9527966dbea9091b9ad245aa84ef8a55212e79f2b7f54130940a37a658",
+      "change": "shell runtime-root discovery only; FLUX5090_ROOT or script directory"
+    },
+    "run_lossless_task.sh": {
+      "source_sha256": "e5c1925e94497e5ba5d3a86c4abfafe9737f4bf8d55d708d03c81592667ed38e",
+      "export_sha256": "d08eb5b4c1e60450fb560fd12bb2d225755ab7a1ea2d8428d85cc392e80b06ee",
+      "change": "shell runtime-root discovery only; FLUX5090_ROOT or script directory"
+    }
+  },
+  "report_files_sha256": {
+    "README.md": "0204542f5db74e84a46f77117f32900ac81da6adfc32eb2a126f18a0e81fefb4",
+    "app.js": "d21faf6c7690e3d79c80f33f8942b2d3fb64cae124df1a26c79ac49d05404837",
+    "data/abba.json": "fda85cb8f3e0dc4c160a253c78a5542131ef9dff3e122e94d3f42baec54aebf1",
+    "data/flux3-5090-public-evidence.zip": "77cc72ab9ac3850e175752e7025163bd23b3c7cacf304dd6dd8bb7899dea6deb",
+    "data/history.json": "2b247bf1ae6c8881e7def8bc58077726acd606f6a85c0d7764bcd40bd7574a42",
+    "data/manifest.json": "d627bf3d4d67981bf5793b4ddcf2b69594f16f126bc3faabb48444c055f9bac1",
+    "data/provenance.json": "6180dfe694cf0ff531abcaecbd1e9ce54a465990b9c9ac5c476516fa45bd55f7",
+    "data/quality.json": "4292372ce8d662200133c46fdca13f95ccdd2b78ed83a0b400dc912555fddc79",
+    "data/restart-verification.json": "daedfca77eda41b30453c222c306dbc5b6dacd9513551ff5c2be24199432a4f7",
+    "data/summary.json": "8a1412140e607e83790a8d9ff4ee1c2a3ac113d0cc82278aee6abeb04fa83d15",
+    "icon.svg": "893ca628ff5aa1795f9be892c66d5417e17eded6f59486b0eb0b8d37e4483193",
+    "index.html": "82054e6d5055ee4728a5ee2e7916f94fe155cfb21bc4c28701f11a159f1d908a",
+    "styles.css": "74a99d5249d6e6e26973055fa9e160bd6fe137558bb2dca599c41f4b5f14203d"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "droid": {
+    "repo_id": "black-forest-labs/flux-3-action-droid",
+    "revision": "3d0887bdc7acee1686b19afac267125d519ff4f1",
+    "path": "/path/to/local/flux-3-action-droid/snapshot"
+  },
+  "encoders": {
+    "repo_id": "black-forest-labs/flux-3-action-base",
+    "revision": "62878e2925e59b7a89ec14463ce89932624c490d",
+    "path": "/path/to/local/flux-3-action-base/snapshot"
+  }
+}
