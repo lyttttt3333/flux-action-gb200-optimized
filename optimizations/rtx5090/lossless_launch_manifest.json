@@ -1,0 +1,348 @@
+{
+  "provenance": "restart-diagnostic-v2/diagnostic.json; actual baseline launchers from completed quality-passing run; freeze these choices instead of fresh timing selection",
+  "module_sha256": "c051c5b0d49dcbcf2064b9c96e5aa5fdbe01a60eecea57873b037f7d3b145e45",
+  "kernels": {
+    "triton_red_fused__scaled_mm__to_copy__unsafe_view_abs_add_amax_clamp_clamp_min_div_mul_native_layer_norm_permute_slice_view_0": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__unsafe_view_add_mul_native_layer_norm_slice_1": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_dot_product_flash_attention__to_copy__unsafe_view_add_mean_mul_pow_rsqrt_select_slice_split_with_sizes_transpose_view_2": {
+      "kwargs": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 128
+      },
+      "num_warps": 2,
+      "num_stages": 1
+    },
+    "triton_red_fused__to_copy__unsafe_view_add_cat_mean_mul_pow_rsqrt_select_slice_split_with_sizes_transpose_view_3": {
+      "kwargs": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 128
+      },
+      "num_warps": 2,
+      "num_stages": 1
+    },
+    "triton_poi_fused__to_copy__unsafe_view_attention_cat_split_with_sizes_transpose_view_4": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused__to_copy__unsafe_view_attention_cat_split_with_sizes_transpose_view_5": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_mm__to_copy_abs_amax_clamp_clamp_min_div_permute_view_6": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_mm__to_copy__unsafe_view_abs_amax_cat_clamp_clamp_min_div_mul_permute_silu_split_split_with_sizes_view_7": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 16384
+      },
+      "num_warps": 32,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_mm__to_copy__unsafe_view_abs_add_amax_clamp_clamp_min_div_mul_native_layer_norm_permute_slice_view_8": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused__unsafe_view_mul_silu_split_split_with_sizes_9": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused__unsafe_view_add_mul_native_layer_norm_slice_10": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_mm__to_copy__unsafe_view_abs_add_amax_clamp_clamp_min_div_mul_native_layer_norm_permute_slice_view_11": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__unsafe_view_add_mul_native_layer_norm_slice_12": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__unsafe_view_add_cat_expand_mul_native_layer_norm_slice_view_13": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_14": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_15": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_16": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_17": {
+      "kwargs": {
+        "XBLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_18": {
+      "kwargs": {
+        "XBLOCK": 256
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_mm__to_copy_abs_amax_clamp_clamp_min_div_permute_view_19": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused__to_copy__unsafe_view_add_cat_mean_mul_pow_rsqrt_select_split_with_sizes_transpose_view_20": {
+      "kwargs": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 128
+      },
+      "num_warps": 2,
+      "num_stages": 1
+    },
+    "triton_poi_fused__to_copy__unsafe_view_attention_cat_split_with_sizes_transpose_view_21": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused__to_copy__unsafe_view_attention_cat_split_with_sizes_transpose_view_22": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused__scaled_mm__to_copy__unsafe_view_abs_amax_cat_clamp_clamp_min_div_mul_permute_silu_split_split_with_sizes_view_23": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 16384
+      },
+      "num_warps": 32,
+      "num_stages": 1
+    },
+    "triton_red_fused_add_cat_mul_native_layer_norm_split_with_sizes_view_24": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_25": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_26": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_27": {
+      "kwargs": {
+        "XBLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_28": {
+      "kwargs": {
+        "XBLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_29": {
+      "kwargs": {
+        "XBLOCK": 256
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused_add_cat_mul_native_layer_norm_split_with_sizes_view_30": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_31": {
+      "kwargs": {
+        "XBLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_32": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_33": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_34": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_35": {
+      "kwargs": {
+        "XBLOCK": 128
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused_add_cat_mul_native_layer_norm_split_with_sizes_view_36": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_37": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_38": {
+      "kwargs": {
+        "XBLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_39": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_40": {
+      "kwargs": {
+        "XBLOCK": 1024
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_mul_native_layer_norm_split_with_sizes_41": {
+      "kwargs": {
+        "XBLOCK": 128
+      },
+      "num_warps": 4,
+      "num_stages": 1
+    },
+    "triton_red_fused_add_cat_mul_native_layer_norm_split_with_sizes_view_42": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_poi_fused_add_cat_mul_split_with_sizes_view_43": {
+      "kwargs": {
+        "XBLOCK": 512
+      },
+      "num_warps": 8,
+      "num_stages": 1
+    },
+    "triton_red_fused_add_mul_native_layer_norm_slice_44": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 4096
+      },
+      "num_warps": 16,
+      "num_stages": 1
+    },
+    "triton_red_fused_add_mul_native_layer_norm_slice_45": {
+      "kwargs": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 4096
+      },
+      "num_warps": 16,
+      "num_stages": 1
+    }
+  }
+}
